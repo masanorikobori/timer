@@ -8,6 +8,12 @@
 
 //　クラス→プロパティ→イニシャライザ→メソッドの順番にかく
 
+
+// イニシャライザはここのページには書かれていない
+// 継承元のUIViewControllerなどにあるっぽい
+// initはクラスの初期化処理？ 初期化処理は、viewdidloadなどですることが多い
+
+
 // Ulkitをインポートして使っている
 import UIKit
 
@@ -27,10 +33,7 @@ class ViewController: UIViewController {
     }
     
     
-    // ⬛︎⬛︎⬛︎ ここの中でイニシャライザはどこに当たるのでしょうか？
-    
-
-    // ⬛︎⬛︎⬛︎ 更新用関数？？↓この部分はメソッドにあたるのでしょうか？
+    // 更新用関数(更新するために作った関数
     // selector: #selector(updatetimer(_:)) で指定された関数
     // 再生ボタンのところのtimeInterval: 0.1, repeats: true で指定された通り、0.1秒毎に呼び出され続ける
     @objc func updateTimer(_ timer: Timer) {
@@ -43,15 +46,16 @@ class ViewController: UIViewController {
     @IBAction func startTimer(_ sender: Any) {
         // 動作中のタイマーを1つに保つために、 timer が存在しない場合だけ、タイマーを生成して動作させる
         if self.timer == nil {
-            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer(_:)), userInfo: nil, repeats: true)      //Timer.scheduledTimerでタイマーを作成、始動していて、その後の()に入っている記述は引数らしい
+            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateTimer(_:)), userInfo: nil, repeats: true)
+            //Timer.scheduledTimerでタイマーを作成、始動していて、その後の()に入っている記述は引数らしい
+            // timeInterval: 0.1    0.1 秒ごとに更新されるタイマー
+            // target: self,    ターゲットは自分(クラスのViewController.swift )を指す
+            // selector: #selector(updateTimer(_:)  タイマーで実行する処理。updateTimerを実行するように#selector(updateTimer(_:)と引数に指定している。
+            // userInfo: nil,   タイマーとして渡したい値があれば設定するけど、今回は不要なのでnil
+            // repeats: true    trueなら呼び出し、falseなら一度の呼び出しで終了
         }
     }
-    // timeInterval: 0.1    0.1 秒ごとに更新されるタイマー
-    // target: self,    ターゲットは自分(クラスのViewController.swift )を指す
-    // selector: #selector(updateTimer(_:) ⬛︎⬛︎⬛︎ ここがよくわからない
-    // userInfo: nil,   タイマーとして渡したい値があれば設定するけど、今回は不要なのでnil
-    // repeats: true    trueなら呼び出し、falseなら一度の呼び出しで終了
-    
+
     
     
     // 一時停止ボタン IBAction
@@ -76,6 +80,8 @@ class ViewController: UIViewController {
             // A_ここまで
         }
     }
+    
+    
     
     
     
